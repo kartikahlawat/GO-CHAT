@@ -20,7 +20,7 @@ A simple Go-based chat server with WebSocket support and an embedded SQLite data
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/Jayeshrao/gochat.git
+git clone https://github.com/kartikahlawat/gochat.git
 cd gochat
 ```
 
