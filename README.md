@@ -1,97 +1,78 @@
-# gochat
+﻿# gochat
 
-A simple Go-based chat server with WebSocket support and an embedded SQLite datastore. The server serves a static frontend from the `static` folder and exposes REST endpoints for registration, login, message history, and user lists.
+A lightweight Go chat server with WebSocket messaging, SQLite persistence, and a static frontend.
 
-**Features:**
+## What it does
 
-- **WebSocket chat:** real-time messaging via `/ws`.
-- **User auth endpoints:** `/register` and `/login`.
-- **Message history:** retrieve and delete via `/history` and `/deleteHistory`.
-- **Embedded SQLite DB:** uses `chatapp.db` in the project root.
-- **Static frontend:** served from the `static` directory at `/`.
+- Serves the UI from `static/` at `/`
+- Exposes auth routes for registration and login
+- Supports real-time chat over `/ws`
+- Stores chat history in `chatapp.db`
+- Creates the database and tables automatically on startup
 
-**Prerequisites:**
+## Requirements
 
-- Go 1.24 or newer (module support enabled).
-- Git (to clone the repo).
+- Go 1.24 or newer
+- Windows PowerShell, Terminal, or any shell that can run `go`
 
-**Quick Start (local)**
+## Run It
 
-1. Clone the repository:
+From the project root:
 
 ```bash
-git clone https://github.com/kartikahlawat/gochat.git
-cd gochat
+go run .
 ```
 
-2. Configure the port (optional):
+By default the server listens on `8080`.
 
-- Edit `.env` and set `PORT = "8080"`, or set an environment variable:
-
-PowerShell:
+To change the port in PowerShell:
 
 ```powershell
-$env:PORT = '8080'
+$env:PORT = '3000'
 go run .
 ```
 
-CMD:
-
-```cmd
-set PORT=8080
-go run .
-```
-
-Or simply run with the default port (8080):
-
-```bash
-go run .
-```
-
-3. Build (optional):
+## Build It
 
 ```bash
 go build -o gochat .
-# On Windows: .\gochat.exe
 ```
 
-4. Open the app in your browser at `http://localhost:8080`.
+On Windows, run the executable with:
 
-**API Endpoints (server-side)**
+```powershell
+.\gochat.exe
+```
 
-- `POST /register` — register a new user
-- `POST /login` — login and receive auth (implementation-specific)
-- `GET/POST /ws` — WebSocket endpoint for real-time chat
-- `GET /history` — message history
-- `GET /users` — list users
-- `POST /deleteHistory` — delete message history
+## Open In Browser
 
-**Database**
+After the server starts, open:
 
-- The server uses `chatapp.db` (SQLite) in the project root. The DB and required tables are created automatically on startup.
+```text
+http://localhost:8080
+```
 
-**Notes**
+## API Routes
 
-- Static assets are served from the `static` directory.
-- The server prints the absolute DB path and a small debug insert on startup for initial testing.
-- Dependencies are managed via Go modules (`go.mod`). Run `go mod tidy` if you add packages.
+- `POST /register`
+- `POST /login`
+- `GET /ws`
+- `GET /history`
+- `GET /users`
+- `POST /deleteHistory`
 
-**Development & Contribution**
+## Project Files
 
-- Feel free to open issues or PRs. If you plan to publish this repository, add a `LICENSE` file.
+- `main.go` - server entry point and route setup
+- `db.go` - database initialization and schema setup
+- `ws.go` - WebSocket handling
+- `auth.go` - authentication handlers
+- `history.go` - chat history handlers
+- `user.go` and `userlist.go` - user-related handlers
+- `static/` - frontend assets
 
-**Files of interest**
+## Notes
 
-- `main.go` — server entrypoint and route registration
-- `db.go` — DB initialization and schema
-- `ws.go` — WebSocket handling
-- `auth.go` — authentication handlers
-- `static/` — frontend files served by the server
-
----
-
-If you want, I can also:
-
-- open the project in VS Code,
-- run `go build` and start the server locally,
-- or add a permissive `LICENSE` file before you publish.
+- `chatapp.db` is created in the project root if it does not already exist.
+- The app enables CORS for local development.
+- If you add new dependencies, run `go mod tidy`.
