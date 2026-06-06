@@ -183,10 +183,34 @@ SQLite is a good fit here because it keeps the project self-contained. You do no
 
 ### Access The Database
 
-To inspect accounts and messages directly, open `chatapp.db` with the SQLite CLI from the project root:
+You can inspect accounts and messages without installing the SQLite CLI by using the included Go viewer:
+
+```powershell
+go run .\tools\dbview
+```
+
+To inspect a different database file:
+
+```powershell
+go run .\tools\dbview .\chatapp.corrupt.db
+```
+
+If you already have the SQLite CLI installed, you can also open `chatapp.db` directly from the project root:
 
 ```bash
 sqlite3 chatapp.db
+```
+
+On Windows, if PowerShell says `sqlite3` is not recognized, install SQLite first:
+
+```powershell
+winget install SQLite.SQLite
+```
+
+After installing, close and reopen PowerShell, then run:
+
+```powershell
+sqlite3 .\chatapp.db
 ```
 
 Useful commands inside the SQLite prompt:
