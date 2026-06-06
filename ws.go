@@ -11,13 +11,15 @@ import (
 
 // WebSocket upgrader with CORS origin check
 var upgrader = websocket.Upgrader{
-    CheckOrigin: func(r *http.Request) bool {
-        origin := r.Header.Get("Origin")
-        return origin == "http://localhost:8080" || 
-               origin == "http://127.0.0.1:8080" || 
-               origin == "http://localhost:3000" ||
-               origin == "https://myfrontend.com"
-    },
+	CheckOrigin: func(r *http.Request) bool {
+		origin := r.Header.Get("Origin")
+		return origin == "http://localhost:8080" ||
+			origin == "http://127.0.0.1:8080" ||
+			origin == "http://localhost:3000" ||
+			origin == "http://127.0.0.1:5500" ||
+			origin == "http://localhost:5500" ||
+			origin == "https://myfrontend.com"
+	},
 }
 
 // Keep track of connected clients

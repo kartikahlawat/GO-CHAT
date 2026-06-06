@@ -165,7 +165,7 @@ curl -X POST http://localhost:8080/login ^
 - `GET /ws` - WebSocket chat endpoint
 - `GET /history` - fetch message history
 - `GET /users` - list users
-- `POST /deleteHistory` - delete message history
+- `DELETE /deleteHistory` - delete message history
 
 ## Database
 
@@ -180,6 +180,25 @@ The `users` table stores usernames and password hashes.
 The `messages` table stores sender, receiver, message content, and timestamps.
 
 SQLite is a good fit here because it keeps the project self-contained. You do not need to install or configure a separate database server just to get started.
+
+### Access The Database
+
+To inspect accounts and messages directly, open `chatapp.db` with the SQLite CLI from the project root:
+
+```bash
+sqlite3 chatapp.db
+```
+
+Useful commands inside the SQLite prompt:
+
+```sql
+.tables
+SELECT username FROM users;
+SELECT sender, receiver, content, created_at FROM messages;
+.exit
+```
+
+The `users` table stores password hashes, not plain-text passwords.
 
 ## Startup Behavior
 
