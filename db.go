@@ -17,17 +17,8 @@ func initDB() {
 		log.Fatal(err)
 	}
 
-	_, err = db.Exec("INSERT INTO messages (sender, receiver, content) VALUES ('debug_sender','debug_receiver','hello from init')")
-if err != nil {
-    log.Println("❌ Debug insert failed:", err)
-} else {
-    log.Println("✅ Debug insert worked")
-}
-
-
-	// Print the exact DB path being used
 	absPath, _ := filepath.Abs("./chatapp.db")
-	log.Println("📂 Using DB file at:", absPath)
+	log.Println("Using DB file at:", absPath)
 
 	createUsersTable := `
 	CREATE TABLE IF NOT EXISTS users (
